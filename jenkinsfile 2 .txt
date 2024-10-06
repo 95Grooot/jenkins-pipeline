@@ -52,14 +52,23 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo 'Pipeline executed successfully.'
-            // Add email notification logic here
-        }
-        failure {
-            echo 'Pipeline execution failed.'
-            // Add email notification logic here
-        }
+  post {
+    success {
+        emailext(
+            to: 'shenal95fernando@gmail.com',
+            subject: "Successful Build: ${currentBuild.fullDisplayName}",
+            body: "The build was successful.",
+            attachments: 'logs/**/*' // Adjust this path as necessary
+        )
+    }
+    failure {
+        emailext(
+            to: 'shenal95fernando@gmail.com',
+            subject: "Failed Build: ${currentBuild.fullDisplayName}",
+            body: "The build has failed.",
+            attachments: 'logs/**/*' // Adjust this path as necessary
+        )
+    }
+}
     }
 }
