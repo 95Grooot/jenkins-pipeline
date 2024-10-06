@@ -1,72 +1,49 @@
- pipeline {
+pipeline {
     agent any
-
+    
+    environment {
+        DIRECTORY_PATH = "/path/to/code"
+        TESTING_ENVIRONMENT = "testing-environment"
+        PRODUCTION_ENVIRONMENT = "Luwis Hennadige Shenal Naveen Fernando"
+    }
+    
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code using Maven...'
-                // Tool: Maven
+                echo "Fetching source code from ${env.DIRECTORY_PATH}"
+                echo "Compiling code and generating artifacts"
             }
         }
-
-        stage('Unit and Integration Tests') {
+        
+        stage('Test') {
             steps {
-                echo 'Running unit tests using JUnit and integration tests using Postman...'
-                // Tools: JUnit (for unit tests), Postman (for integration tests)
+                echo "Running unit tests"
+                echo "Running integration tests"
             }
         }
-
-        stage('Code Analysis') {
+        
+        stage('Code Quality Check') {
             steps {
-                echo 'Analyzing the code using SonarQube...'
-                // Tool: SonarQube
+                echo "Checking code quality"
             }
         }
-
-        stage('Security Scan') {
+        
+        stage('Deploy') {
             steps {
-                echo 'Performing security scan using OWASP ZAP...'
-                // Tool: OWASP ZAP
+                echo "deploy the application to ${env.TESTING_ENVIRONMENT}"
             }
         }
-
-        stage('Deploy to Staging') {
+        
+        stage('Approval') {
             steps {
-                echo 'Deploying the application to AWS EC2 instance...'
-                // Tool: AWS CLI or Elastic Beanstalk
+                sh "sleep 10"
             }
         }
-
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running integration tests in the staging environment...'
-                // Tools: Postman or Selenium
-            }
-        }
-
+        
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to the production server...'
-                // Tool: AWS CLI or Elastic Beanstalk
-            }
-        }
-        post {
-            success {
-        
-            mail to: "shenal95fernando@gmail.com",
-            subject: "Successful Build: ${currentBuild.fullDisplayName}",
-            body: "The build was successful.",
-            attachments: 'logs/**/*' // Adjust this path as necessary
-        
-            }
-
-            failure {
-        
-            mail to: "shenal95fernando@gmail.com",
-            subject: "Failed Build: ${currentBuild.fullDisplayName}",
-            body: "The build has failed.",
-            attachments: 'logs/**/*' // Adjust this path as necessary  
+                echo "Deploying code to ${env.PRODUCTION_ENVIRONMENT}"
             }
         }
     }
- }
+}
