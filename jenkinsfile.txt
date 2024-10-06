@@ -1,4 +1,4 @@
-pipeline {
+ pipeline {
     agent any
 
     stages {
@@ -50,25 +50,24 @@ pipeline {
                 // Tool: AWS CLI or Elastic Beanstalk
             }
         }
-    }
-
-  post {
-    success {
-        emailext(
-            to: 'shenal95fernando@gmail.com',
+        post {
+            success {
+        
+            mail to: "shenal95fernando@gmail.com",
             subject: "Successful Build: ${currentBuild.fullDisplayName}",
             body: "The build was successful.",
             attachments: 'logs/**/*' // Adjust this path as necessary
-        )
-    }
-    failure {
-        emailext(
-            to: 'shenal95fernando@gmail.com',
+        
+            }
+
+            failure {
+        
+            mail to: "shenal95fernando@gmail.com",
             subject: "Failed Build: ${currentBuild.fullDisplayName}",
             body: "The build has failed.",
-            attachments: 'logs/**/*' // Adjust this path as necessary
-        )
+            attachments: 'logs/**/*' // Adjust this path as necessary  
+            }
+        }
     }
-}
-    }
-}
+
+  
