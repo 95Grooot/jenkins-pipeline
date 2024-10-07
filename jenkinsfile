@@ -28,18 +28,14 @@ pipeline {
                 echo 'Performing security scan using OWASP ZAP...'
                 // Tool: OWASP ZAP
             }
+             post {
+                  success {
 
-            // post {
-            //      success {
-            //              emailext(
-            //                      mail to: "shenal95fernando@gmail.com",
-            //                      subject: "Successful Build: ${currentBuild.fullDisplayName}",
-            //                      body: "The build was successful.",
-            //                      attachments: 'logs/**/*' // Adjust this path as necessary
-            //                     )
-            //              }
-
-            //       }
+                    mail to: "shenal95fernando@gmail.com",
+                    subject: "Successful Build: ${currentBuild.fullDisplayName}",
+                    body: "The build was successful."
+                    }
+                } 
         }
 
         stage('Deploy to Staging') {
