@@ -60,14 +60,14 @@ pipeline {
                     body: "The build was successful."
                     }
                 }
-                  failure {
+    //               failure {
           
-                     mail to: "shenal95fernando@gmail.com",
-                     subject: "Failed Build: ${currentBuild.result}",
-                     body: "The build has failed.",
+    //                  mail to: "shenal95fernando@gmail.com",
+    //                  subject: "Failed Build: ${currentBuild.result}",
+    //                  body: "The build has failed.",
            
         
-    }
+    // }
         }
 
         stage('Deploy to Production') {
