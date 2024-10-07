@@ -56,7 +56,7 @@ pipeline {
 
                     mail to: "shenal95fernando@gmail.com",
                     subject: "${currentBuild.result}",
-                    body: "Integration Tests is  ${currentBuild.result}."
+                    body: "Integration Test is  ${currentBuild.result}."
                     }
                 }
 
