@@ -34,6 +34,7 @@ pipeline {
                     mail to: "shenal95fernando@gmail.com",
                     subject: "Successful Build: ${currentBuild.fullDisplayName}",
                     body: "The build was successful."
+                    attachments: 'logs/**/*' 
                     }
                 } 
         }
@@ -50,6 +51,16 @@ pipeline {
                 echo 'Running integration tests in the staging environment...'
                 // Tools: Postman or Selenium
             }
+
+             post {
+                  success {
+
+                    mail to: "shenal95fernando@gmail.com",
+                    subject: "Successful Build: ${currentBuild.fullDisplayName}",
+                    body: "The build was successful."
+                    attachments: 'logs/**/*' 
+                    }
+                }
         }
 
         stage('Deploy to Production') {
