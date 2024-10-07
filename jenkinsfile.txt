@@ -66,7 +66,7 @@ pipeline {
             to: "shenal95fernando@gmail.com",
             subject: "Failed Build: ${currentBuild.fullDisplayName}",
             body: "The build has failed.",
-            attachments: 'logs/**/*' // Adjust this path as necessary
+            attachments: 'logs/**/*' 
         )
     }
  }
