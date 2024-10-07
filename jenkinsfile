@@ -29,16 +29,14 @@ pipeline {
                 // Tool: OWASP ZAP
             }
             
-   post {
-    success {
-      
-           mail to: "shenal95fernando@gmail.com",
-           subject: "Successful Build: ${currentBuild.fullDisplayName}",
-           body: "The build was successful.",
-            attachments: 'logs/**/*' // Adjust this path as necessary
-        
-    }
-        
+              post {
+            success {
+
+            mail to: "shenal95fernando@gmail.com",
+            subject: "Successful Build: ${currentBuild.fullDisplayName}",
+            body: "The build was successful.",
+            attachments: 'logs/**/*' // Adjust this path as necessary  
+            }
         }
 
         stage('Deploy to Staging') {
@@ -62,5 +60,4 @@ pipeline {
             }
         }
     }
- }
 }
