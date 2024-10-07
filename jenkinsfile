@@ -33,7 +33,7 @@ pipeline {
 
                     mail to: "shenal95fernando@gmail.com",
                     subject: "${currentBuild.result}",
-                    body: "Integration Tests is  ${currentBuild.result}."
+                    body: "Security Scans is  ${currentBuild.result}."
                     }
                 }
         }
