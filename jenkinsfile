@@ -6,17 +6,68 @@ pipeline {
             steps {
                 echo 'Building the code using Maven...'
                 // Tool: Maven
-            } 
-            post {
-                  success {
-
-                    mail to: "shenal95fernando@gmail.com",
-                    subject: "Successful Build: ${currentBuild.fullDisplayName}",
-                    body: "The build was successful."
-                }
-        } 
-           
+            }
         }
 
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Running unit tests using JUnit and integration tests using Postman...'
+                // Tools: JUnit (for unit tests), Postman (for integration tests)
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Analyzing the code using SonarQube...'
+                // Tool: SonarQube
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Performing security scan using OWASP ZAP...'
+                // Tool: OWASP ZAP
+            }
+
+            post {
+                 success {
+                         emailext(
+                                 mail to: "shenal95fernando@gmail.com",
+                                 subject: "Successful Build: ${currentBuild.fullDisplayName}",
+                                 body: "The build was successful.",
+                                 attachments: 'logs/**/*' // Adjust this path as necessary
+                                )
+                         }
+    failure {
+        emailext(
+            to: "shenal95fernando@gmail.com",
+            subject: "Failed Build: ${currentBuild.fullDisplayName}",
+            body: "The build has failed.",
+            attachments: 'logs/**/*' 
+        )
+    }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying the application to AWS EC2 instance...'
+                // Tool: AWS CLI or Elastic Beanstalk
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests in the staging environment...'
+                // Tools: Postman or Selenium
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying the application to the production server...'
+                // Tool: AWS CLI or Elastic Beanstalk
+            }
+        }
+    }
 }
-}
+
