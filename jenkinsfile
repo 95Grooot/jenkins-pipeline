@@ -58,7 +58,7 @@ pipeline {
                     mail to: "shenal95fernando@gmail.com",
                     subject: "Successful Build: ${currentBuild.fullDisplayName}",
                     body: "The build was successful."
-                    attachments: 'logs/**/*' 
+                    emailext attachLog: true,
                     }
                 }
         }
