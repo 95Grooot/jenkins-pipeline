@@ -32,7 +32,7 @@ pipeline {
                   success {
 
                     mail to: "shenal95fernando@gmail.com",
-                    subject: "Successful Build: ${currentBuild.fullDisplayName}",
+                    subject: "Successful Build: ${currentBuild.result}",
                     body: "The build was successful."
                   
                     }
@@ -56,10 +56,18 @@ pipeline {
                   success {
 
                     mail to: "shenal95fernando@gmail.com",
-                    subject: "Successful Build: ${currentBuild.fullDisplayName}",
+                    subject: "Successful Build: ${currentBuild.result}",
                     body: "The build was successful."
                     }
                 }
+                  failure {
+          
+                     mail to: "shenal95fernando@gmail.com",
+                     subject: "Failed Build: ${currentBuild.result}",
+                     body: "The build has failed.",
+           
+        
+    }
         }
 
         stage('Deploy to Production') {
